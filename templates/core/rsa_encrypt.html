@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+
+{% block page_title %}
+    ENCRYPT
+{% endblock %}
+
+{% block content %}
+
+    <div class="w-full py-32 flex items-center justify-center">
+        <div class="card w-full max-w-2xl">
+          <form class="card-body flex gap-y-10" method="POST" enctype="multipart/form-data" novalidate>
+              <h2 class="card-title text-3xl">Let's Encrypt</h2>
+              {% csrf_token %}
+              <div class="form-control w-full">
+                  <label class="label" for="{{ form.content_to_encrypt.id_for_label }}">
+                    <span class="label-text">Content to encrypt (*.txt)</span>
+                  </label>
+                  <input name="{{ form.content_to_encrypt.name }}" id="{{ form.content_to_encrypt.id_for_label }}" type="file" class="file-input w-full max-w-xs" />
+                  <label class="label">
+                    {% if form.content_to_encrypt.errors %}
+                        {% for error in form.content_to_encrypt.errors %}
+                            <span class="label-text-alt text-error font-bold">{{ error }}</span>
+                        {% endfor %}
+                    {% endif %}
+                  </label>
+              </div>
+            <button class="btn">ENCRYPT FILE</button>
+          </form>
+        </div>
+    </div>
+{% endblock %}
